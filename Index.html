@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lagkläder – beställning</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f5f7;
+    color: #171717;
+}
+
+header {
+    background: #111;
+    color: white;
+    padding: 28px 18px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 7px;
+    font-size: 28px;
+}
+
+header p {
+    margin: 0;
+    color: #ccc;
+}
+
+main {
+    max-width: 1100px;
+    margin: 22px auto;
+    padding: 0 14px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px #00000012;
+}
+
+h2 {
+    margin: 0 0 15px;
+    font-size: 21px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+input,
+textarea {
+    width: 100%;
+    margin-top: 6px;
+    border: 1px solid #bbb;
+    border-radius: 9px;
+    padding: 11px;
+    font-size: 16px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.badge {
+    font-size: 12px;
+    background: #eee;
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+th,
+td {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 8px 4px;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+    font-weight: 700;
+}
+
+th {
+    font-size: 13px;
+    background: #fafafa;
+    position: sticky;
+    top: 0;
+}
+
+.choice {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #111;
+}
+
+.qty {
+    width: 68px;
+    text-align: center;
+    padding: 8px;
+}
+
+.product {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #ddd;
+}
+
+.product h3 {
+    margin: 0 0 7px;
+    font-size: 17px;
+}
+
+.product p {
+    margin: 0 0 8px;
+    color: #666;
+    font-size: 13px;
+}
+
+.color-red {
+    border-left: 5px solid #c62828;
+    padding-left: 10px;
+}
+
+.color-blue {
+    border-left: 5px solid #1565c0;
+    padding-left: 10px;
+}
+
+.color-yellow {
+    border-left: 5px solid #f4c20d;
+    padding-left: 10px;
+}
+
+.color-black {
+    border-left: 5px solid #222;
+    padding-left: 10px;
+}
+
+.color-white {
+    border-left: 5px solid #aaa;
+    padding-left: 10px;
+}
+
+.summary {
+    background: #111;
+    color: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 18px;
+}
+
+.summary h2 {
+    margin-bottom: 8px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid #444;
+}
+
+.summary-row:last-child {
+    border: 0;
+}
+
+/* KNAPPAR */
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 14px 20px;
+    cursor: pointer;
+}
+
+.send-button {
+    background: #2e7d32;
+    flex: 1;
+}
+
+.clear-button {
+    background: #555;
+    width: 140px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.small {
+    font-size: 12px;
+    color: #666;
+}
+
+.notice {
+    background: #fff8df;
+    border: 1px solid #eed58a;
+    padding: 11px;
+    border-radius: 9px;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th,
+    td {
+        padding: 7px 2px;
+    }
+
+    .choice {
+        width: 20px;
+        height: 20px;
+    }
+
+    .scroll {
+        overflow-x: auto;
+    }
+
+    .scroll table {
+        min-width: 620px;
+    }
+
+    .summary {
+        position: sticky;
+        bottom: 8px;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .clear-button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+    <iframe
+    name="bestallning_iframe"
+    id="bestallning_iframe"
+    style="display:none;">
+</iframe>
+
+<header>
+    <h1>Beställning av lagkläder</h1>
+    <p>Fyll i uppgifterna och välj de plagg laget behöver.</p>
+</header>
+
+<main>
+
+<!-- BESTÄLLARE -->
+
+<section class="card">
+
+    <h2>Beställare</h2>
+
+    <div class="grid">
+
+        <label>
+            Mailadress
+            <input
+                id="email"
+                type="email"
+                placeholder="namn@example.se"
+            >
+        </label>
+
+        <label>
+            Namn
+            <input
+                id="name"
+                type="text"
+                placeholder="För- och efternamn"
+            >
+        </label>
+
+        <label>
+            Lag
+            <input
+                id="team"
+                type="text"
+                placeholder="Ex. P17"
+            >
+        </label>
+
+    </div>
+
+    <div class="notice">
+        För match- och målvaktströjor väljer du storlek genom
+        att kryssa i rätt ruta för varje nummer.
+        Ett nummer kan bara ha en storlek per plagg.
+    </div>
+
+</section>
+
+
+<!-- MATCHTRÖJOR -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <h2>Matchtröjor</h2>
+
+        <span class="badge">
+            Nummer 2–29
+        </span>
+
+    </div>
+
+    <div id="match"></div>
+
+</section>
+
+
+<!-- MÅLVAKTSTRÖJOR -->
+
+<section class="card">
+
+    <div class="section-title">
+
+        <h2>Målvaktströjor</h2>
+
+        <span class="badge">
+            Nummer 1 eller 30
+        </span>
+
+    </div>
+
+    <div id="keeper"></div>
+
+</section>
+
+
+<!-- SHORTS -->
+
+<section class="card">
+
+    <h2>Shorts</h2>
+
+    <div id="shorts"></div>
+
+</section>
+
+
+<!-- STRUMPOR -->
+
+<section class="card">
+
+    <h2>Strumpor</h2>
+
+    <div id="socks"></div>
+
+</section>
+
+
+<!-- ÖVRIGT -->
+
+<section class="card">
+
+    <h2>Övrigt</h2>
+
+    <textarea
+        id="other"
+        placeholder="Skriv eventuell övrig information här..."
+    ></textarea>
+
+</section>
+
+
+<!-- SAMMANSTÄLLNING -->
+
+<section class="summary">
+
+    <h2>Sammanställning</h2>
+
+    <div id="summary">
+        Inga plagg valda ännu.
+    </div>
+
+
+    <!-- KNAPPAR -->
+
+    <div class="button-container">
+
+        <button
+            type="button"
+            class="send-button"
+            onclick="submitOrder()"
+        >
+            Skicka beställning
+        </button>
+
+        <button
+            type="button"
+            class="clear-button"
+            onclick="clearForm()"
+        >
+            Rensa
+        </button>
+
+    </div>
+
+    <p
+        class="small"
+        style="color:#bbb;margin-bottom:0"
+    >
+        Prototyp: knappen visar beställningen.
+        För riktig inskickning behöver formuläret kopplas
+        till exempelvis Google Sheets, databas eller e-post.
+    </p>
+
+</section>
+
+</main>
+
+
+<script>
+
+const adult = [
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+];
+
+const junior = [
+    "122/128",
+    "134/140",
+    "146/152",
+    "158/164"
+];
+
+const sock = [
+    "28-30",
+    "31-33",
+    "34-36",
+    "37-39",
+    "40-42",
+    "43-45",
+    "46-48"
+];
+
+
+// ============================
+// MATCHTRÖJOR
+// ============================
+
+const matchProducts = [
+
+    ["Röd Matchtröja Herr", "red", adult],
+
+    ["Blå Matchtröja Herr", "blue", adult],
+
+    ["Röd Matchtröja Dam", "red", adult],
+
+    ["Blå Matchtröja Dam", "blue", adult],
+
+    ["Röd Matchtröja Junior", "red", junior],
+
+    ["Blå Matchtröja Junior", "blue", junior]
+
+];
+
+
+// ============================
+// MÅLVAKTSTRÖJOR
+// ============================
+
+const keeperProducts = [
+
+    ["Gul Målvaktströja Herr", "yellow", adult],
+
+    ["Gul Målvaktströja Dam", "yellow", adult],
+
+    ["Gul Målvaktströja Junior", "yellow", junior]
+
+];
+
+
+// ============================
+// SHORTS
+// ============================
+
+const shortProducts = [
+
+    ["Röd Shorts Herr", "red", adult],
+
+    ["Blå Shorts Herr", "blue", adult],
+
+    ["Röd Shorts Dam", "red", adult],
+
+    ["Blå Shorts Dam", "blue", adult],
+
+    ["Röd Shorts Junior", "red", junior],
+
+    ["Blå Shorts Junior", "blue", junior],
+
+    ["Svarta Shorts Herr", "black", adult],
+
+    ["Svarta Shorts Dam", "black", adult],
+
+    ["Svarta Shorts Junior", "black", junior]
+
+];
+
+
+// ============================
+// STRUMPOR
+// ============================
+
+const sockProducts = [
+
+    ["Strumpor Blå", "blue", sock],
+
+    ["Strumpor Röd", "red", sock],
+
+    ["Strumpor Svarta", "black", sock],
+
+    ["Strumpor Vita", "white", sock],
+
+    ["Gula Strumpor", "yellow", sock]
+
+];
+
+
+// ============================
+// SKAPA TRÖJOR
+// ============================
+
+function numbered(
+    container,
+    products,
+    numbers
+) {
+
+    const el =
+        document.getElementById(container);
+
+    products.forEach((p, pi) => {
+
+        const id =
+            "n" + container + pi;
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "product color-" + p[1];
+
+        div.innerHTML = `
+
+            <h3>${p[0]}</h3>
+
+            <p>
+                Välj storlek för de nummer
+                som ska beställas.
+            </p>
+
+        `;
+
+        const sc =
+            document.createElement("div");
+
+        sc.className = "scroll";
+
+
+        const table =
+            document.createElement("table");
+
+
+        table.innerHTML = `
+
+            <thead>
+
+                <tr>
+
+                    <th>Nr</th>
+
+                    ${p[2]
+                        .map(
+                            x => `<th>${x}</th>`
+                        )
+                        .join("")
+                    }
+
+                </tr>
+
+            </thead>
+
+        `;
+
+
+        const tbody =
+            document.createElement("tbody");
+
+
+        numbers.forEach(num => {
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td>${num}</td>
+
+                ${
+                    p[2]
+                        .map(
+                            s => `
+
+                            <td>
+
+                                <input
+
+                                    class="choice numbered"
+
+                                    type="radio"
+
+                                    name="${id}-${num}"
+
+                                    data-product="${p[0]}"
+
+                                    data-number="${num}"
+
+                                    data-size="${s}"
+
+                                >
+
+                            </td>
+
+                            `
+                        )
+                        .join("")
+                }
+
+            `;
+
+
+            tbody.appendChild(tr);
+
+        });
+
+
+        table.appendChild(tbody);
+
+        sc.appendChild(table);
+
+        div.appendChild(sc);
+
+        el.appendChild(div);
+
+    });
+
+}
+
+
+// ============================
+// SKAPA SHORTS / STRUMPOR
+// ============================
+
+function quantities(
+    container,
+    products
+) {
+
+    const el =
+        document.getElementById(container);
+
+
+    products.forEach((p, pi) => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "product color-" + p[1];
+
+
+        div.innerHTML = `
+
+            <h3>${p[0]}</h3>
+
+            <p>
+                Ange antal i varje storlek.
+            </p>
+
+        `;
+
+
+        const sc =
+            document.createElement("div");
+
+        sc.className =
+            "scroll";
+
+
+        const table =
+            document.createElement("table");
+
+
+        table.innerHTML = `
+
+            <thead>
+
+                <tr>
+
+                    <th>Antal</th>
+
+                    ${
+                        p[2]
+                            .map(
+                                x => `<th>${x}</th>`
+                            )
+                            .join("")
+                    }
+
+                </tr>
+
+            </thead>
+
+        `;
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        tr.innerHTML = `
+
+            <td>St</td>
+
+            ${
+                p[2]
+                    .map(
+                        s => `
+
+                        <td>
+
+                            <input
+
+                                class="qty"
+
+                                type="number"
+
+                                min="0"
+
+                                max="99"
+
+                                value="0"
+
+                                data-product="${p[0]}"
+
+                                data-size="${s}"
+
+                            >
+
+                        </td>
+
+                        `
+                    )
+                    .join("")
+            }
+
+        `;
+
+
+        table.appendChild(tr);
+
+        sc.appendChild(table);
+
+        div.appendChild(sc);
+
+        el.appendChild(div);
+
+    });
+
+}
+
+
+// ============================
+// BYGG FORMULÄRET
+// ============================
+
+numbered(
+    "match",
+    matchProducts,
+    Array.from(
+        { length: 28 },
+        (_, i) => i + 2
+    )
+);
+
+
+numbered(
+    "keeper",
+    keeperProducts,
+    [1, 30]
+);
+
+
+quantities(
+    "shorts",
+    shortProducts
+);
+
+
+quantities(
+    "socks",
+    sockProducts
+);
+
+
+// ============================
+// HÄMTA VALDA PLAGG
+// ============================
+
+function getSelections() {
+
+    const out = [];
+
+
+    // Tröjor
+
+    document
+        .querySelectorAll(".numbered:checked")
+        .forEach(x => {
+
+            out.push({
+
+                product: x.dataset.product,
+
+                number: x.dataset.number,
+
+                size: x.dataset.size
+
+            });
+
+        });
+
+
+    // Shorts / strumpor
+
+    document
+        .querySelectorAll(".qty")
+        .forEach(x => {
+
+            if (+x.value > 0) {
+
+                out.push({
+
+                    product: x.dataset.product,
+
+                    number: null,
+
+                    size: x.dataset.size,
+
+                    quantity: +x.value
+
+                });
+
+            }
+
+        });
+
+
+    return out;
+}
+
+
+// ============================
+// UPPDATERA SAMMANSTÄLLNING
+// ============================
+
+function updateSummary() {
+
+    const selections =
+        getSelections();
+
+
+    const box =
+        document.getElementById("summary");
+
+
+    if (!selections.length) {
+
+        box.innerHTML =
+            "Inga plagg valda ännu.";
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        selections
+            .map(item => {
+
+                if (item.number) {
+
+                    return `
+
+                        <div class="summary-row">
+
+                            <span>
+                                ${item.product}
+                            </span>
+
+                            <span>
+                                Nr ${item.number}
+                                – ${item.size}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                return `
+
+                    <div class="summary-row">
+
+                        <span>
+                            ${item.product}
+                        </span>
+
+                        <span>
+                            ${item.quantity} st
+                            – ${item.size}
+                        </span>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+// ============================
+// RÄKNA OM VID ÄNDRING
+// ============================
+
+document.addEventListener(
+    "change",
+    updateSummary
+);
+
+document.addEventListener(
+    "input",
+    updateSummary
+);
+
+
+// ============================
+// SKICKA BESTÄLLNING
+// ============================
+
+function submitOrder() {
+
+    const email = document.getElementById("email").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const team = document.getElementById("team").value.trim();
+    const other = document.getElementById("other").value.trim();
+
+    if (!email || !name || !team) {
+        alert("Fyll i mailadress, namn och lag först.");
+        return;
+    }
+
+    const items = getSelections();
+
+    if (!items.length) {
+        alert("Välj minst ett plagg.");
+        return;
+    }
+
+    const data = {
+        email: email,
+        name: name,
+        team: team,
+        other: other,
+        items: items
+    };
+
+    const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbzG9U58ok3WXjOKp-8j6qF5Lbdw5TAqoVg5VXpYlYzdRj1Ipt0cIAs_LYfTgi9RYQ4T/exec";
+
+    // Skapa ett vanligt HTML-formulär
+    const form = document.createElement("form");
+
+    form.method = "POST";
+    form.action = SCRIPT_URL;
+    form.target = "bestallning_iframe";
+    form.style.display = "none";
+
+    // Skicka JSON som formulärparameter
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = "data";
+    input.value = JSON.stringify(data);
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+
+    // Skicka
+    form.submit();
+
+    // Ta bort formuläret
+    setTimeout(() => {
+        form.remove();
+    }, 1000);
+
+    alert(
+        "Beställningen har skickats!\n\n" +
+        "En bekräftelse skickas till " +
+        email
+    );
+
+    // Rensa efter skickad beställning
+    clearFormWithoutConfirmation();
+}
+
+
+// ============================
+// RENSAR HELA FORMULÄRET
+// ============================
+
+function clearForm() {
+
+    const confirmed =
+        confirm(
+            "Vill du verkligen rensa hela beställningen?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    // Textfält
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("team").value = "";
+
+    document.getElementById("other").value = "";
+
+
+    // Tröjor
+
+    document
+        .querySelectorAll(".numbered")
+        .forEach(input => {
+
+            input.checked = false;
+
+        });
+
+
+    // Shorts / strumpor
+
+    document
+        .querySelectorAll(".qty")
+        .forEach(input => {
+
+            input.value = 0;
+
+        });
+
+
+    // Uppdatera sammanställningen
+
+    updateSummary();
+
+}
+
+function clearFormWithoutConfirmation() {
+
+    document.getElementById("email").value = "";
+
+    document.getElementById("name").value = "";
+
+    document.getElementById("team").value = "";
+
+    document.getElementById("other").value = "";
+
+
+    document
+        .querySelectorAll(".numbered")
+        .forEach(input => {
+
+            input.checked = false;
+
+        });
+
+
+    document
+        .querySelectorAll(".qty")
+        .forEach(input => {
+
+            input.value = 0;
+
+        });
+
+
+    updateSummary();
+
+}
+
+</script>
+
+</body>
+</html>
