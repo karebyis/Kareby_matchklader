@@ -469,20 +469,13 @@ button:hover {
 
     </div>
 
-    <p
-        class="small"
-        style="color:#bbb;margin-bottom:0"
-    >
-        Prototyp: knappen visar beställningen.
-        För riktig inskickning behöver formuläret kopplas
-        till exempelvis Google Sheets, databas eller e-post.
-    </p>
+   
 
 </section>
 
 </main>
 
-
+<script src="config.js"></script>
 <script>
 
 const adult = [
@@ -1058,9 +1051,7 @@ function submitOrder() {
         items: items
     };
 
-    const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbzG9U58ok3WXjOKp-8j6qF5Lbdw5TAqoVg5VXpYlYzdRj1Ipt0cIAs_LYfTgi9RYQ4T/exec";
-
+   
     // Skapa ett vanligt HTML-formulär
     const form = document.createElement("form");
 
