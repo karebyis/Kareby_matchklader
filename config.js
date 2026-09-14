@@ -6,4 +6,3 @@ const CONFIG = {
     förening: "Kareby"
 };
 
-https://script.google.com/macros/s/AKfycbzZtiyoWPHxd-naeNJcN2vWePYulBVyUCNpJQMiEOtZ54DZSQkhdTmWwDgIEZ9hz2w/exec
