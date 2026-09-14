@@ -874,7 +874,27 @@ quantities(
     sockProducts
 );
 
+// ============================
+// KLICKA IGEN FÖR ATT AVMARKERA TRÖJA
+// ============================
 
+document.addEventListener("mousedown", function(e) {
+    if (e.target.classList.contains("numbered")) {
+        e.target.dataset.wasChecked = e.target.checked;
+    }
+});
+
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("numbered")) {
+
+        if (e.target.dataset.wasChecked === "true") {
+            e.target.checked = false;
+            updateSummary();
+        }
+
+        delete e.target.dataset.wasChecked;
+    }
+});
 // ============================
 // HÄMTA VALDA PLAGG
 // ============================
